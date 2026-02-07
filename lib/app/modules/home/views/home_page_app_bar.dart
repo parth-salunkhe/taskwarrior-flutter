@@ -56,7 +56,7 @@ class HomePageAppBar extends StatelessWidget implements PreferredSizeWidget {
   void _showResultSnackBar(BuildContext context, String message, bool isError) {
     TaskwarriorColorTheme tColors =
         Theme.of(context).extension<TaskwarriorColorTheme>()!;
-    ScaffoldMessenger.of(context).showSnackBar(
+    final controller = ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         backgroundColor: tColors.secondaryBackgroundColor,
         content: Text(
@@ -68,12 +68,12 @@ class HomePageAppBar extends StatelessWidget implements PreferredSizeWidget {
         action: isError
             ? SnackBarAction(
                 label: SentenceManager(
-                        currentLanguage: controller.selectedLanguage.value)
+                        currentLanguage: this.controller.selectedLanguage.value)
                     .sentences
                     .homePageSetup,
                 onPressed: () {
-                  if (controller.taskchampion.value ||
-                      controller.taskReplica.value) {
+                  if (this.controller.taskchampion.value ||
+                      this.controller.taskReplica.value) {
                     Get.toNamed(Routes.MANAGE_TASK_CHAMPION_CREDS);
                   } else {
                     Get.toNamed(Routes.MANAGE_TASK_SERVER);
@@ -84,6 +84,7 @@ class HomePageAppBar extends StatelessWidget implements PreferredSizeWidget {
             : null,
       ),
     );
+    Future.delayed(const Duration(seconds: 2), controller.close);
   }
 
   @override
