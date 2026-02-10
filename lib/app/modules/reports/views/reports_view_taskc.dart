@@ -65,6 +65,9 @@ class ReportsHomeTaskc extends StatelessWidget {
                 unselectedLabelStyle: GoogleFonts.poppins(
                   fontWeight: TaskWarriorFonts.light,
                 ),
+                onTap: (value) {
+                  reportsController.selectedIndex.value = value;
+                },
                 tabs: <Widget>[
                   Tab(
                     key: reportsController.daily,
@@ -145,13 +148,15 @@ class ReportsHomeTaskc extends StatelessWidget {
                         ),
                       ],
                     )
-                  : TabBarView(
-                      controller: reportsController.tabController,
-                      children: [
-                        BurnDownDailyTaskc(),
-                        BurnDownWeeklyTask(),
-                        BurnDownMonthlyTaskc(),
-                      ],
+                  : Obx(
+                      () => IndexedStack(
+                        index: reportsController.selectedIndex.value,
+                        children: [
+                          BurnDownDailyTaskc(),
+                          BurnDownWeeklyTask(),
+                          BurnDownMonthlyTaskc(),
+                        ],
+                      ),
                     ),
         );
       },

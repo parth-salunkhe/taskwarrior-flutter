@@ -51,6 +51,9 @@ class ReportsView extends GetView<ReportsController> {
                 color: TaskWarriorColors.appBarUnSelectedIconsColorForReports),
             indicatorColor: tColors.purpleShade,
             labelColor: TaskWarriorColors.white,
+            onTap: (value) {
+              controller.selectedIndex.value = value;
+            },
             tabs: <Widget>[
               Tab(
                 key: controller.daily,
@@ -130,8 +133,8 @@ class ReportsView extends GetView<ReportsController> {
                   ),
                 ],
               )
-            : TabBarView(
-                controller: controller.tabController,
+            : IndexedStack(
+                index: controller.selectedIndex.value,
                 children: [
                   BurnDownDaily(
                     reportsController: controller,
